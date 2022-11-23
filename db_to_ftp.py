@@ -1,11 +1,11 @@
-import pandas as pd
-from sqlalchemy import create_engine
-from ftplib import FTP
 import logging
 import logging.config
-import traceback
 import os
+import traceback
+from ftplib import FTP
 
+import pandas as pd
+from sqlalchemy import create_engine
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,7 +44,7 @@ def mysql_table_to_csv():
     df = pd.read_sql(f'SELECT * FROM {mysql_table}', con=db_connection, 
                      index_col='time')
     logger.info(f"Retrieved {len(df)} records from database")
-    df.to_csv(fname)
+    df.to_csv(fname, float_format='%g')
 
 def main():
     mysql_table_to_csv()
