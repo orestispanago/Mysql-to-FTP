@@ -41,8 +41,8 @@ def mysql_table_to_csv():
                          f'{mysql_password}@{mysql_host}:'
                          f'{mysql_port}/{mysql_db}')
     db_connection = create_engine(db_connection_str)
-    df = pd.read_sql(f'SELECT * FROM {mysql_table}', con=db_connection, 
-                     index_col='time')
+    df = pd.read_sql(f'SELECT `time` as Datetime_UTC, Tmean as temp, RHmean as RH FROM {mysql_table}', con=db_connection, 
+                     index_col='Datetime_UTC')
     logger.info(f"Retrieved {len(df)} records from database")
     df.to_csv(fname, float_format='%g')
 
